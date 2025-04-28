@@ -1,0 +1,3 @@
+[submodule "vendor/DiffRhythm"]
+	path = vendor/DiffRhythm
+	url = https://github.com/ASLP-lab/DiffRhythm.git
