@@ -1,0 +1,21 @@
+[project]
+name = "ai-storyteller"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "dachenlian", email = "cclemon.lian@gmail.com" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "google-genai>=1.12.1",
+    "hf-transfer>=0.1.9",
+    "hf-xet>=1.0.5",
+    "openai>=1.76.0",
+    "torch>=2.7.0",
+    "transformers>=4.51.3",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
