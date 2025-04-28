@@ -20,6 +20,7 @@ class DiffRhythm:
             package_path: Optional path to the root directory of the DiffRhythm code.
                           If None, defaults to PACKAGE_PATH defined above.
         """
+        self.data_dir = settings.data_dir
         # Use default from global scope if None
         resolved_package_path = (
             Path(package_path).resolve() if package_path else PACKAGE_PATH
@@ -135,15 +136,15 @@ class DiffRhythm:
 
     def generate_music(
         self,
-        prompt: str | None = None,  # Use | None
-        lrc_path: str | Path | None = None,  # Use | None
+        prompt: str | None = None,
+        lrc_path: str | Path | None = None,
         audio_length: Literal[95, 285] = 285,
-        ref_audio_path: str | Path | None = None,  # Use | None
+        ref_audio_path: str | Path | None = None,
         instrumental_only: bool = False,
-        output_dir: str | Path | None = None,  # Use | None
+        output_dir: str | Path | None = None,
         chunked: bool = True,
         repo_id: str = "ASLP-lab/DiffRhythm-full",
-    ) -> Path | None:  # Use | None
+    ) -> Path | None:
         """
         Generates music by calling the DiffRhythm shell script with named arguments.
 
@@ -160,15 +161,26 @@ class DiffRhythm:
         Returns:
             The absolute path to the generated music file if successful, otherwise None.
         """
-        actual_lrc_path: Path | None = None  # Use | None
         if lrc_path:
             actual_lrc_path = Path(lrc_path)
-        elif instrumental_only:
-            actual_lrc_path = None
-            print("Instrumental only specified, using script's default LRC handling.")
-        # Else: actual_lrc_path remains None
+        else:
+            actual_lrc_path = (
+                self.data_dir / "music_generation" / "lrc" / "eg_en_full.lrc"
+            )
+            print(f"LRC path not provided, using script default: {actual_lrc_path}")
+            # If no lrc_path is provided and instrumental_only is True, use the default empty LRC
+            if instrumental_only:
+                actual_lrc_path = (
+                    self.data_dir / "music_generation" / "music" / "empty.lrc"
+                )
+                print(
+                    "Instrumental only specified, using script's default LRC handling."
+                )
 
-        effective_output_dir: Path  # Declare type
+        if prompt and ref_audio_path:
+            print("Both prompt and reference audio path provided, using prompt only.")
+            ref_audio_path = None  # Ignore ref_audio_path if prompt is given
+
         if output_dir:
             effective_output_dir = Path(output_dir).resolve()
             try:
@@ -184,6 +196,9 @@ class DiffRhythm:
             print(
                 f"Output directory not specified, expecting output in script default: {effective_output_dir}"
             )
+
+        if audio_length not in [95, 285]:
+            raise ValueError("audio_length must be either 95 or 285 seconds.")
 
         expected_output_file = effective_output_dir / "output.wav"
 
