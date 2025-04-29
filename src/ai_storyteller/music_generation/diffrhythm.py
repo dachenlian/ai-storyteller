@@ -46,7 +46,8 @@ class DiffRhythm:
         # Determine absolute path to the shell script
         # *** Adjust the relative path if your script is located differently ***
         self.shell_script_path = (
-            settings.base_dir / "scripts" / "music_generation" / "run_diffrhythm.sh"
+            # settings.base_dir / "scripts" / "music_generation" / "run_diffrhythm.sh"
+            self.package_path / "scripts" / "run_diffrhythm.sh"
         ).resolve()
         if not self.shell_script_path.is_file():
             alt_shell_path = (
