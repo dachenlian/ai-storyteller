@@ -38,6 +38,7 @@ dependencies = [
     { name = "hf-transfer" },
     { name = "hf-xet" },
     { name = "openai" },
+    { name = "opencc" },
     { name = "pydantic-settings" },
     { name = "python-dotenv" },
     { name = "torch" },
@@ -94,6 +95,7 @@ requires-dist = [
     { name = "mutagen", marker = "extra == 'diffrhythm'", specifier = "==1.47.0" },
     { name = "onnxruntime", marker = "extra == 'diffrhythm'" },
     { name = "openai", specifier = ">=1.76.0" },
+    { name = "opencc", specifier = "==1.1.6" },
     { name = "pandas", marker = "extra == 'diffrhythm'", specifier = "==2.2.3" },
     { name = "phonemizer", marker = "extra == 'diffrhythm'", specifier = "==3.3.0" },
     { name = "prefigure", marker = "extra == 'diffrhythm'", specifier = "==0.0.10" },
@@ -1925,6 +1927,15 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/84/51/817969ec969b73d8ddad085670ecd8a45ef1af1811d8c3b8a177ca4d1309/openai-1.76.0.tar.gz", hash = "sha256:fd2bfaf4608f48102d6b74f9e11c5ecaa058b60dad9c36e409c12477dfd91fb2", size = 434660 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/59/aa/84e02ab500ca871eb8f62784426963a1c7c17a72fea3c7f268af4bbaafa5/openai-1.76.0-py3-none-any.whl", hash = "sha256:a712b50e78cf78e6d7b2a8f69c4978243517c2c36999756673e07a14ce37dc0a", size = 661201 },
+]
+
+[[package]]
+name = "opencc"
+version = "1.1.6"
+source = { registry = "https://pypi.org/simple" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/cf/1e/02a6c79358f08c83f4272f9454b2c614e1dc0a67c6f1018496a926600d0d/OpenCC-1.1.6-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:f84fdf2a5abd97171edc477a884f248b5f78b1269020d5b82482ad34d7692fcc", size = 739458 },
+    { url = "https://files.pythonhosted.org/packages/c0/f6/04601bf9dc0b7849de597e7455b9788d34b0d251f3891bf1d7c9ff6ce37f/OpenCC-1.1.6-cp311-cp311-manylinux1_x86_64.whl", hash = "sha256:d0537a0068166e9bf391db4c85dbc9099866fd29ec0a8b3d2abb8cf10e8f50df", size = 778222 },
 ]
 
 [[package]]
