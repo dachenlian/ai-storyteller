@@ -50,16 +50,10 @@ class DiffRhythm:
             self.package_path / "scripts" / "run_diffrhythm.sh"
         ).resolve()
         if not self.shell_script_path.is_file():
-            alt_shell_path = (
-                self.package_path / "scripts" / "run_inference.sh"
-            )  # Example alternative name/location
-            if alt_shell_path.is_file():
-                self.shell_script_path = alt_shell_path
-            else:
-                raise FileNotFoundError(
-                    f"DiffRhythm shell script not found at {self.shell_script_path} or {alt_shell_path}"
-                )
-        print(f"Using DiffRhythm shell script: {self.shell_script_path}")
+            raise FileNotFoundError(
+                f"DiffRhythm shell script not found at {self.shell_script_path}"
+            )
+        print(f"Using DiffRhythm shell script: {self.shell_script_path.relative_to(settings.base_dir)}")
 
     def _call_diffrhythm_bash_script(
         self,
@@ -70,6 +64,7 @@ class DiffRhythm:
         audio_length: Literal[95, 285] = 285,
         repo_id: str = "ASLP-lab/DiffRhythm-full",
         output_dir: str | Path | None = None,  # Use | None
+        output_file_name: str = "output.wav",
     ) -> bool:
         """
         Calls the DiffRhythm bash script using named arguments via subprocess.
@@ -102,6 +97,7 @@ class DiffRhythm:
             cmd.extend(["--repo-id", repo_id])
             if output_dir:
                 cmd.extend(["--output-dir", str(Path(output_dir).resolve())])
+            cmd.extend(["--output-file-name", output_file_name])
 
             print(f"Executing shell script: {' '.join(cmd)}")
 
@@ -139,10 +135,11 @@ class DiffRhythm:
         self,
         prompt: str | None = None,
         lrc_path: str | Path | None = None,
-        audio_length: Literal[95, 285] = 285,
+        audio_length: Literal[95, 285] = 95,
         ref_audio_path: str | Path | None = None,
         instrumental_only: bool = False,
         output_dir: str | Path | None = None,
+        output_file_name: str = "output.wav",
         chunked: bool = True,
         repo_id: str = "ASLP-lab/DiffRhythm-full",
     ) -> Path | None:
@@ -201,7 +198,7 @@ class DiffRhythm:
         if audio_length not in [95, 285]:
             raise ValueError("audio_length must be either 95 or 285 seconds.")
 
-        expected_output_file = effective_output_dir / "output.wav"
+        expected_output_file = effective_output_dir / output_file_name
 
         success = self._call_diffrhythm_bash_script(
             lrc_path=actual_lrc_path,
@@ -211,6 +208,7 @@ class DiffRhythm:
             audio_length=audio_length,
             repo_id=repo_id,
             output_dir=output_dir,  # Pass None or the specified dir
+            output_file_name=output_file_name,
         )
 
         if success:
