@@ -7,6 +7,7 @@ DEFAULT_REF_AUDIO_PATH="" # Default to empty, meaning ref-prompt will be used un
 DEFAULT_AUDIO_LENGTH="285" # Default from original script
 DEFAULT_REPO_ID="ASLP-lab/DiffRhythm-full" # Default from original script
 DEFAULT_OUTPUT_DIR="infer/example/output" # Default from original script
+DEFAULT_OUTPUT_FILE_NAME="output.wav" # Default from original script
 DEFAULT_CHUNKED=true # Default from original script (presence of --chunked)
 
 # Initialize variables with defaults
@@ -16,6 +17,7 @@ ref_audio_path_arg=""
 audio_length_arg=""
 repo_id_arg=""
 output_dir_arg=""
+output_file_name_arg=$DEFAULT_OUTPUT_FILE_NAME
 chunked_arg=$DEFAULT_CHUNKED # Boolean flag handling
 
 # --- Argument Parsing with getopt ---
@@ -24,8 +26,8 @@ chunked_arg=$DEFAULT_CHUNKED # Boolean flag handling
 # This uses Linux getopt syntax. For macOS, install gnu-getopt: brew install gnu-getopt
 # and potentially call it as `gnu-getopt` or add it to PATH first.
 # Options ending with ':' expect an argument. 'chunked' is a flag.
-SHORT_OPTS="l:p:a:L:R:O:ch" # Added 'a' for ref-audio, 'c' for chunked flag, 'h' for help
-LONG_OPTS="lrc-path:,ref-prompt:,ref-audio-path:,audio-length:,repo-id:,output-dir:,chunked,help"
+SHORT_OPTS="l:p:a:L:R:O:f:ch" # Added 'f' for output file name, 'a' for ref-audio, 'c' for chunked flag, 'h' for help
+LONG_OPTS="lrc-path:,ref-prompt:,ref-audio-path:,audio-length:,repo-id:,output-dir:,output-file-name:,chunked,help"
 
 # Check if getopt is available
 if ! command -v getopt &> /dev/null; then
@@ -74,6 +76,10 @@ while true; do
             output_dir_arg="$2"
             shift 2
             ;;
+        -f|--output-file-name)
+            output_file_name_arg="$2"
+            shift 2
+            ;;
         -c|--chunked)
             # If --chunked is present, set to true. If not, it remains default.
             # If you want a --no-chunked option, that requires more logic.
@@ -108,7 +114,8 @@ done
 # Get the directory containing this script
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 # Navigate to the expected DiffRhythm root relative to the script's parent
-TARGET_DIR=$(cd "${SCRIPT_DIR}/../../vendor/DiffRhythm" && pwd)
+# TARGET_DIR=$(cd "${SCRIPT_DIR}/../../vendor/DiffRhythm" && pwd)
+TARGET_DIR=$(cd "${SCRIPT_DIR}/../" && pwd)
 
 if [ ! -d "$TARGET_DIR" ]; then
     echo "Error: Target directory not found: $TARGET_DIR"
@@ -143,6 +150,7 @@ REF_AUDIO_PATH=${ref_audio_path_arg:-$DEFAULT_REF_AUDIO_PATH}
 AUDIO_LENGTH=${audio_length_arg:-$DEFAULT_AUDIO_LENGTH}
 REPO_ID=${repo_id_arg:-$DEFAULT_REPO_ID}
 OUTPUT_DIR=${output_dir_arg:-$DEFAULT_OUTPUT_DIR}
+OUTPUT_FILE_NAME=${output_file_name_arg:-$DEFAULT_OUTPUT_FILE_NAME}
 CHUNKED=$chunked_arg
 
 # Validate LRC Path (only if it wasn't the default one implicitly used)
@@ -193,6 +201,7 @@ printf "%b" "  Ref Audio Path: $REF_AUDIO_PATH\n"
 printf "%b" "  Audio Length:   $AUDIO_LENGTH\n"
 printf "%b" "  Repo ID:        $REPO_ID\n"
 printf "%b" "  Output Dir:     $OUTPUT_DIR\n"
+printf "%b" "  Output File:    $OUTPUT_FILE_NAME\n"
 printf "%b" "  Chunked:        $CHUNKED\n"
 
 # --- Construct Python Command ---
@@ -213,6 +222,7 @@ fi
 PYTHON_CMD+=(--audio-length "$AUDIO_LENGTH")
 PYTHON_CMD+=(--repo_id "$REPO_ID")
 PYTHON_CMD+=(--output-dir "$OUTPUT_DIR") # Pass relative or absolute path
+PYTHON_CMD+=(--output-file-name "$OUTPUT_FILE_NAME") # Pass relative or absolute path
 
 # --- Execute Python Script ---
 printf "\n%b" "${CYAN}Executing Python script...${NC}\n"
