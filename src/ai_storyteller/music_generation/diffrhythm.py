@@ -133,7 +133,7 @@ class DiffRhythm:
 
     def generate_music(
         self,
-        prompt: str | None = None,
+        ref_prompt: str | None = None,
         lrc_path: str | Path | None = None,
         audio_length: Literal[95, 285] = 95,
         ref_audio_path: str | Path | None = None,
@@ -147,7 +147,7 @@ class DiffRhythm:
         Generates music by calling the DiffRhythm shell script with named arguments.
 
         Args:
-             prompt: The reference text prompt (--ref-prompt). Uses script default if None.
+             ref_prompt: The reference text prompt (--ref-prompt). Uses script default if None.
              lrc_path: Optional path to lyrics file (--lrc-path). Uses script default if None.
              audio_length: Audio length, 95 or 285 (--audio-length).
              ref_audio_path: Optional path to reference audio file (--ref-audio-path).
@@ -175,7 +175,7 @@ class DiffRhythm:
                     "Instrumental only specified, using script's default LRC handling."
                 )
 
-        if prompt and ref_audio_path:
+        if ref_prompt and ref_audio_path:
             print("Both prompt and reference audio path provided, using prompt only.")
             ref_audio_path = None  # Ignore ref_audio_path if prompt is given
 
@@ -202,7 +202,7 @@ class DiffRhythm:
 
         success = self._call_diffrhythm_bash_script(
             lrc_path=actual_lrc_path,
-            ref_prompt=prompt,
+            ref_prompt=ref_prompt,
             ref_audio_path=ref_audio_path,
             chunked=chunked,
             audio_length=audio_length,
@@ -401,6 +401,6 @@ if __name__ == "__main__":
     # Example usage
     prompt = "Lo-fi music with the flute"
     model.generate_music(
-        prompt=prompt,
+        ref_prompt=prompt,
         instrumental_only=True,
     )
