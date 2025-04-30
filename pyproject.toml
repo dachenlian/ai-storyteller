@@ -8,6 +8,8 @@ authors = [
 ]
 requires-python = ">=3.11"
 dependencies = [
+    "accelerate>=1.4.0",
+    "bitsandbytes>=0.45.5",
     "google-genai>=1.12.1",
     "gradio>=5.27.0",
     "hf-transfer>=0.1.9",
