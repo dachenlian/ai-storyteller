@@ -162,18 +162,22 @@ class DiffRhythm:
         if lrc_path:
             actual_lrc_path = Path(lrc_path)
         else:
-            actual_lrc_path = (
-                self.data_dir / "music_generation" / "lrc" / "eg_en_full.lrc"
+            raise ValueError(
+                "LRC path must be provided for music generation."
             )
-            print(f"LRC path not provided, using script default: {actual_lrc_path}")
-            # If no lrc_path is provided and instrumental_only is True, use the default empty LRC
-            if instrumental_only:
-                actual_lrc_path = (
-                    self.data_dir / "music_generation" / "music" / "empty.lrc"
-                )
-                print(
-                    "Instrumental only specified, using script's default LRC handling."
-                )
+        # else:
+        #     actual_lrc_path = (
+        #         self.data_dir / "music_generation" / "lrc" / "eg_en_full.lrc"
+        #     )
+        #     print(f"LRC path not provided, using script default: {actual_lrc_path}")
+        #     # If no lrc_path is provided and instrumental_only is True, use the default empty LRC
+        #     if instrumental_only:
+        #         actual_lrc_path = (
+        #             self.data_dir / "music_generation" / "music" / "empty.lrc"
+        #         )
+        #         print(
+        #             "Instrumental only specified, using script's default LRC handling."
+        #         )
 
         if ref_prompt and ref_audio_path:
             print("Both prompt and reference audio path provided, using prompt only.")
