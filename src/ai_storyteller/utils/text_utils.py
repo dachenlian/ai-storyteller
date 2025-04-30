@@ -15,7 +15,7 @@ $               # End of the line (due to re.MULTILINE)
 """
 
 
-def clean_lyric_lines(lyrics: str | None) -> list[str]:
+def clean_lyric_lines(lyrics: str | None) -> str:
     """
     Cleans the lyrics by removing lines that do not match the specified pattern.
 
@@ -38,4 +38,4 @@ def clean_lyric_lines(lyrics: str | None) -> list[str]:
         for line in valid_lyric_lines
         if (cleaned_line := line.strip()) != ""
     ]
-    return valid_lyric_lines
+    return "\n".join(valid_lyric_lines)
