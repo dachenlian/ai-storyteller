@@ -137,7 +137,6 @@ class DiffRhythm:
         lrc_path: str | Path | None = None,
         audio_length: Literal[95, 285] = 95,
         ref_audio_path: str | Path | None = None,
-        instrumental_only: bool = False,
         output_dir: str | Path | None = None,
         output_file_name: str = "output.wav",
         chunked: bool = True,
