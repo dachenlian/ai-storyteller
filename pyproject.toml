@@ -62,3 +62,6 @@ dev = [
     "ipykernel>=6.29.5",
     "ipywidgets>=8.1.6",
 ]
+
+[tool.uv.workspace]
+members = ["vendor/DiffRhythm"]

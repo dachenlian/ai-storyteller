@@ -10,6 +10,12 @@ resolution-markers = [
     "python_full_version < '3.12' and sys_platform != 'linux'",
 ]
 
+[manifest]
+members = [
+    "ai-storyteller",
+    "diffrhythm",
+]
+
 [[package]]
 name = "accelerate"
 version = "1.4.0"
@@ -607,6 +613,82 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/98/97/06afe62762c9a8a86af0cfb7bfdab22a43ad17138b07af5b1a58442690a2/deprecated-1.2.18.tar.gz", hash = "sha256:422b6f6d859da6f2ef57857761bfb392480502a64c3028ca9bbe86085d72115d", size = 2928744 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/6e/c6/ac0b6c1e2d138f1002bcf799d330bd6d85084fece321e662a14223794041/Deprecated-1.2.18-py2.py3-none-any.whl", hash = "sha256:bd5011788200372a32418f888e326a09ff80d0214bd961147cfed01b5c018eec", size = 9998 },
+]
+
+[[package]]
+name = "diffrhythm"
+version = "0.1.0"
+source = { editable = "vendor/DiffRhythm" }
+dependencies = [
+    { name = "accelerate" },
+    { name = "bitsandbytes" },
+    { name = "cn2an" },
+    { name = "ema-pytorch" },
+    { name = "inflect" },
+    { name = "jieba" },
+    { name = "librosa" },
+    { name = "muq" },
+    { name = "mutagen" },
+    { name = "onnxruntime" },
+    { name = "pandas" },
+    { name = "phonemizer" },
+    { name = "prefigure" },
+    { name = "py3langid" },
+    { name = "pyarrow" },
+    { name = "pykakasi" },
+    { name = "pylance" },
+    { name = "pypinyin" },
+    { name = "torchaudio" },
+    { name = "torchdiffeq" },
+    { name = "transformers" },
+    { name = "unidecode" },
+    { name = "x-transformers" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "accelerate", specifier = "==1.4.0" },
+    { name = "bitsandbytes", specifier = ">=0.45.5" },
+    { name = "cn2an", specifier = "==0.5.23" },
+    { name = "ema-pytorch", specifier = "==0.7.7" },
+    { name = "inflect", specifier = "==7.5.0" },
+    { name = "jieba", specifier = "==0.42.1" },
+    { name = "librosa", specifier = "==0.10.2.post1" },
+    { name = "muq", specifier = "==0.1.0" },
+    { name = "mutagen", specifier = "==1.47.0" },
+    { name = "onnxruntime", specifier = ">=1.21.1" },
+    { name = "pandas", specifier = "==2.2.3" },
+    { name = "phonemizer", specifier = "==3.3.0" },
+    { name = "prefigure", specifier = "==0.0.10" },
+    { name = "py3langid", specifier = ">=0.3.0" },
+    { name = "pyarrow", specifier = "==19.0.1" },
+    { name = "pykakasi", specifier = "==2.3.0" },
+    { name = "pylance", specifier = "==0.23.2" },
+    { name = "pypinyin", specifier = "==0.53.0" },
+    { name = "torchaudio", specifier = "==2.6.0" },
+    { name = "torchdiffeq", specifier = "==0.2.5" },
+    { name = "transformers", specifier = "==4.51.3" },
+    { name = "unidecode", specifier = "==1.3.8" },
+    { name = "x-transformers", specifier = "==2.1.2" },
+]
+
+[[package]]
+name = "diffusers"
+version = "0.33.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "filelock" },
+    { name = "huggingface-hub" },
+    { name = "importlib-metadata" },
+    { name = "numpy" },
+    { name = "pillow" },
+    { name = "regex" },
+    { name = "requests" },
+    { name = "safetensors" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/82/cc/1ef6bdc99d3864f6d1ee11bdbe3708b9d33ce35e7671557f641897480956/diffusers-0.33.1.tar.gz", hash = "sha256:fc7f140295d2ec82b1e7474b77bb7057fc0686c14eadc54ca0e52a66527e18a2", size = 2896103 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/e7/7a/f08f610cea8a3395ad3b4f586db23bedb43c68db6c3261145a15e7b63126/diffusers-0.33.1-py3-none-any.whl", hash = "sha256:027469e74f289338eb24127409f8d60d840b1b7ce4b27ffcd3134fd3b8431567", size = 3554612 },
 ]
 
 [[package]]
