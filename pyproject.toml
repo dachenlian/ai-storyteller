@@ -10,7 +10,7 @@ requires-python = ">=3.11"
 dependencies = [
     "accelerate>=1.4.0",
     "bitsandbytes>=0.45.5",
-    "diffusers>=0.33.1",
+    "diffusers[torch]>=0.33.1",
     "gguf>=0.16.2",
     "google-genai>=1.12.1",
     "gradio>=5.27.0",
