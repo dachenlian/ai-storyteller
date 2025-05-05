@@ -38,7 +38,8 @@ def _get_from_env(key_name: str) -> str | None:
     if _is_module_available("dotenv"):
         from dotenv import load_dotenv  # type: ignore
 
-        load_dotenv()
+        # Load .env file, overriding existing environment variables if present
+        load_dotenv(override=True)
     # Always try os.getenv, as dotenv just loads vars into the environment
     return os.getenv(key_name)
 
